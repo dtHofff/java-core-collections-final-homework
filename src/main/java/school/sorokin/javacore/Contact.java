@@ -32,4 +32,9 @@ public class Contact {
     public int hashCode() {
         return Objects.hash(name, phone);
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s : %s, %s", group, name, phone, email);
+    }
 }
