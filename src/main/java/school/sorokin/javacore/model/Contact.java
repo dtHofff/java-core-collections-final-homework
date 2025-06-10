@@ -1,4 +1,4 @@
-package school.sorokin.javacore;
+package school.sorokin.javacore.model;
 
 import java.util.Objects;
 
@@ -36,5 +36,21 @@ public class Contact {
     @Override
     public String toString() {
         return String.format("[%s] %s : %s, %s", group, name, phone, email);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getGroup() {
+        return group;
     }
 }
