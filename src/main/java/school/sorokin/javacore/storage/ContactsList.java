@@ -10,9 +10,48 @@ public class ContactsList {
     final Map<String, List<Contact>> contactsMap;
 
     public ContactsList() {
-        this.contactsList = new ArrayList<>();
-        this.contactsSet = new HashSet<>();
-        this.contactsMap = new HashMap<>();
+        this.contactsList = new ArrayList<>() {
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                Iterator<Contact> iterator = contactsList.iterator();
+                while (iterator.hasNext()) {
+                    Contact contact = iterator.next();
+                    sb.append(contact).append("\n");
+                }
+                return sb.toString();
+            }
+        };
+
+        this.contactsSet = new HashSet<>() {
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                Iterator<Contact> iterator = contactsSet.iterator();
+                while (iterator.hasNext()) {
+                    Contact contact = iterator.next();
+                    sb.append(contact).append("\n");
+                }
+                return sb.toString();
+            }
+        };
+
+        this.contactsMap = new HashMap<>() {
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                Iterator<Map.Entry<String, List<Contact>>> iterator = contactsMap.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<String, List<Contact>> entry = iterator.next();
+                    sb.append("\nГруппа: ").append(entry.getKey()).append("\n");
+                    List<Contact> contactList = entry.getValue();
+                    for (Contact contact : contactList) {
+                        sb.append(contact).append("\n");
+                    }
+                }
+                return sb.toString();
+            }
+        };
     }
 
     public boolean add(final String name, final String phone, final String email, final String group) {
@@ -33,13 +72,7 @@ public class ContactsList {
     }
 
     public String getContactsList() {
-        StringBuilder sb = new StringBuilder();
-        Iterator<Contact> iterator = contactsList.iterator();
-        while (iterator.hasNext()) {
-            Contact contact = iterator.next();
-            sb.append(contact).append("\n");
-        }
-        return sb.toString();
+        return this.contactsList.toString();
     }
 
     public Contact searchByName(final String name) {
@@ -57,6 +90,22 @@ public class ContactsList {
             }
         }
         return null; // Возвращаем null, если контакт не найден
+    }
+
+    public List<Contact> findAllByName(final String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return null; // Возвращаем null, если имя пустое или null
+        }
+        List<Contact> foundContacts = new ArrayList<>();
+        // Ищем все контакты с заданным именем
+        Iterator <Contact> iterator = contactsSet.iterator();
+        while (iterator.hasNext()) {
+            Contact contact = iterator.next();
+            if (contact.getName().trim().equalsIgnoreCase(name)) {
+                foundContacts.add(contact);
+            }
+        }
+        return foundContacts; // Возвращаем список найденных контактов
     }
 
     public boolean removeByName(final String name) {
@@ -83,12 +132,17 @@ public class ContactsList {
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("Контакты в группе \"").append(group).append("\":\n");
-        Iterator<Contact> iterator = contacts.iterator();
-        while (iterator.hasNext()) {
-            Contact contact = iterator.next();
-            sb.append(contact).append("\n");
-        }
-        return sb.toString();
+                for (Contact contact : contacts) {
+                    sb.append(contact).append("\n");
+                }
+                return sb.toString();
+    }
+
+    public String getContactsSet() {
+        return this.contactsSet.toString();
+    }
+
+    public String getContactsMap() {
+        return this.contactsMap.toString();
     }
 }

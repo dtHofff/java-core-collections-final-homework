@@ -1,13 +1,12 @@
 package school.sorokin.javacore;
 
-/**
- * Hello world!
- *
- */
-public class App 
+import school.sorokin.javacore.storage.ContactsList;
+import school.sorokin.javacore.view.ConsoleView;
+
+public class App
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main( String[] args ) {
+        ConsoleView consoleView = new ConsoleView();
+        consoleView.start();
     }
 }

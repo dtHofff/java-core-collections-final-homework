@@ -25,12 +25,12 @@ public class Contact {
         Contact other = (Contact) obj;
 
         if (!Objects.equals(phone, other.phone)) return false;
-        return (name != null ? name.equals(other.name) : other.name == null);
+        return (name != null ? name.toLowerCase().equals(other.name.toLowerCase()) : other.name == null);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone);
+        return Objects.hash(name.toLowerCase(), phone.toLowerCase());
     }
 
     @Override
