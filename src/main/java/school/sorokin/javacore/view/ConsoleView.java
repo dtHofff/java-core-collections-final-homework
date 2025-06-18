@@ -163,7 +163,7 @@ public class ConsoleView {
     }
 
     private void showContactsList() {
-        String contactsList = contacts.getContactsList();
+        String contactsList = contacts.getContactList();
         if (contactsList.isEmpty()) {
             System.out.println(CONTACTS_LIST_EMPTY_NOTIFICATION);
         } else {
